@@ -1,0 +1,93 @@
+/// Assingment #7-A (Chapter 12) Stephanie Imperial
+/// Write a program that asks the user for the name of a file. The program should
+/// display the first 10 lines of the file on the screen (the "head" of the file.)
+/// If the file has fewer than 10 lines, the entire file should be displayed, with
+/// a message indicating the entire file has been displayed.
+
+/// *Using an editor, create a simple text file that can be used to test this program.
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+bool openFile(ifstream &, string);
+void showContents(ifstream &);
+
+int main()
+{
+    string fileName;  /// To hold the file name
+    //char ch;          /// To hold a character
+    ifstream inFile;  /// Input file
+    //fstream outFile;
+    string line;    /// to store a line
+
+    /// ask User for the name of a file
+    cout << "Enter a file name: ";
+    cin >> fileName;
+    int count =0;
+    //cout << "You entered, " << fileName << " is this correct? Please enter Y or N: ";
+    //int YN;
+    //cin >> YN;
+
+    /// open the file, data will be read from the file
+    ///inFile.open(fileName.c_str(), ios::in);
+    /// open the file for input
+    ///outFile.open(fileName.c_str());
+
+    if (openFile(inFile, fileName))
+    {
+
+
+        while (getline(inFile, line))
+        {
+            count++;
+            /// display the last item read
+            cout << "Line # :  " << count << "  " << line << endl;
+            if(count == 10)
+                    break;
+
+
+        }
+
+        /// output/display the first 10 lines of the file
+        //cout << "File opened successfully. Now reading data from the file.\n\n.";
+        //showContents(fileName);
+        inFile.close();
+
+        /// if the file has few than 10 lines, display entire file with message indication this
+
+        if(count < 10)
+            cout << "This file has less than 10 lines, therefore the entire file is displayed.\n";
+
+        cout << "Done.\n";
+
+
+    }
+    else
+
+        cout << "File open error!" << endl;
+
+    return 0;
+}
+bool openFile(ifstream &file, string name)
+{
+    file.open(name.c_str(), ios::in);
+    if (file.fail())
+        return false;
+    else
+        return true;
+}
+/*
+void showContents(ifstream &file)
+{
+    string line;
+
+    while (file >> line)
+    {
+        cout << line << endl;
+    }
+
+}
+*/
